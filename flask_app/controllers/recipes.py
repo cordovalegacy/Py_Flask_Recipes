@@ -15,7 +15,16 @@ def save_one_recipe():
         'description': request.form['description'],
         'instructions': request.form['instructions'],
         'cooked': request.form['cooked'],
-        'under_30': request.form['under_30']
+        'under_30': request.form['under_30'],
+        'user_id': session['user_id']
     }
     Recipe.save_recipe(form_data)
+    return redirect('/user_page')
+
+@app.route('/delete_one_recipe/<int:id>')
+def delete_one_recipe(id):
+    data = {
+        'id': id
+    }
+    Recipe.delete_recipe(data)
     return redirect('/user_page')

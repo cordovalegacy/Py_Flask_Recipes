@@ -45,7 +45,7 @@ def user_page():
     data = {
         'id': session['user_id']
     }
-    return render_template('user_page.html', user = User.get_one_user_by_id(data), all_recipes = Recipe.get_all_recipes())
+    return render_template('user_page.html', user = User.get_one_user_by_id(data), all_recipes = Recipe.get_all_recipes_with_user())
 
 @app.route('/logout')
 def logout():

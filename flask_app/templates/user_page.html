@@ -29,18 +29,24 @@
             </tr>
         </thead>
         <tbody>
+            {% for one_recipe in all_recipes %}
             <tr class="text-light">
-                {% for one_recipe in all_recipes %}
                 <td>{{one_recipe.name}}</td>
-                <td>{{one_recipe.under_30}}</td>
-                <td>Test</td>
+                <td>
+                    {% if one_recipe.under_30 == 0 %}
+                    No
+                    {% else %}
+                    Yes
+                    {% endif %}
+                </td>
+                <td>{{one_recipe.posted_by.first_name}}</td>
                 <td class="text-light">
                     <button><a href="/display_one_recipe">View Recipe</a></button> | 
                     <button><a href="/edit_one_recipe">Edit</a></button> | 
-                    <button><a href="/delete_one_recipe">Delete</a></button>
+                    <button><a href="/delete_one_recipe/{{one_recipe.id}}">Delete</a></button>
                 </td>
-                {% endfor %}
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 </body>
