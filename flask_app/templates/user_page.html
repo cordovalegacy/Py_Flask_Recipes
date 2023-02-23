@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,8 +9,40 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>User Page</title>
 </head>
-<body class="bg-primary p-3 text-center">
-    <h1>Hello {{user.first_name}}!</h1>
-    <button><a href="/logout">Logout</a></button>
+
+<body class="bg-primary p-5 text-center">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Welcome, {{user.first_name}}!</h1>
+        <div>
+            <button><a href="/create_one_recipe">+ Create Recipe</a></button>
+            <button><a href="/logout">Logout</a></button>
+        </div>
+    </div>
+    <h4 class="text-left">All Posted Recipes:</h4>
+    <table class="table text-warning table-hover table-dark table-striped table-bordered border-light mt-3">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Under 30</th>
+                <th>Posted By</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-light">
+                {% for one_recipe in all_recipes %}
+                <td>{{one_recipe.name}}</td>
+                <td>{{one_recipe.under_30}}</td>
+                <td>Test</td>
+                <td class="text-light">
+                    <button><a href="/display_one_recipe">View Recipe</a></button> | 
+                    <button><a href="/edit_one_recipe">Edit</a></button> | 
+                    <button><a href="/delete_one_recipe">Delete</a></button>
+                </td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
 </body>
+
 </html>

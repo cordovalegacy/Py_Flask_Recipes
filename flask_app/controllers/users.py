@@ -1,6 +1,7 @@
 from flask_app import app
 from flask import render_template, redirect, request, session, flash
 from flask_app.models.user import User
+from flask_app.models.recipe import Recipe
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
@@ -44,7 +45,7 @@ def user_page():
     data = {
         'id': session['user_id']
     }
-    return render_template('user_page.html', user = User.get_one_user_by_id(data))
+    return render_template('user_page.html', user = User.get_one_user_by_id(data), all_recipes = Recipe.get_all_recipes())
 
 @app.route('/logout')
 def logout():
