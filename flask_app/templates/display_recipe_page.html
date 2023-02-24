@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>User Page</title>
+</head>
+
+<body class="bg-primary p-5 text-center">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Welcome, {{user.first_name}}!</h1>
+        <div>
+            <button><a href="/user_page">Dashboard</a></button>
+            <button><a href="/logout">Logout</a></button>
+        </div>
+    </div>
+    <hr>
+    <h4 class="text-center">Recipe By: {{one_recipe.first_name}} {{one_recipe.last_name}} - {{one_recipe.email}}</h4>
+    <hr>
+    <h5 class="text-center text-warning bg-dark m-auto p-3 border border-warning rounded">{{one_recipe.name}}</h5>
+    <div class="bg-dark border border-warning text-light p-3 rounded">
+        <div class="d-flex align-items-center justify-content-around mt-3">
+            <h6 class="w-50">Description: <span class="text-primary">{{one_recipe.description}}</span></h6>
+            <h6 class="w-50">Recipe Origin Date: <span class="text-primary">{{one_recipe.cooked}}</span></h6>
+        </div>
+        <h6 class="m-5">
+            {% if one_recipe.under_30 == 0 %}
+            It takes more than <u class="text-primary">30</u> minutes!
+            {% else %}
+            It takes less than <u class="text-primary">30</u> minutes!
+            {% endif %}
+        </h6>
+        <h6 class="bg-light text-dark w-50 m-auto p-3">Instructions: {{one_recipe.instructions}}</h6>
+        <p class="mt-5">Thanks for stopping by!!</p>
+    </div>
+</body>
+
+</html>

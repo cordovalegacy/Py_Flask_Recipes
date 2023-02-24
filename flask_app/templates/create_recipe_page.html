@@ -11,6 +11,10 @@
 </head>
 
 <body class="bg-primary p-2">
+    <div class="text-right p-3 m-3">
+        <button><a href="/user_page">Dashboard</a></button>
+        <button><a href="/logout">Logout</a></button>
+    </div>
     <form action="/save_one_recipe" method="post"
         class="bg-dark m-auto p-5 w-50 h-100 text-center text-light form-control border border-warning">
         <h2 class="text-warning">Create a Recipe</h2>
@@ -24,35 +28,35 @@
         {% endwith %}
         <div class="form-group">
             <label for="name" class="w-50">Name:</label>
-            <input type="text" name="name" class="w-50" />
+            <input type="text" name="name" class="w-50" >
         </div>
         <div class="form-group">
             <label for="description" class="w-50">Description:</label>
-            <input type="text" name="description" class="w-50" />
+            <input type="text" name="description" class="w-50" >
         </div>
         <div class="form-group">
             <label for="instructions" class="w-50">Instructions:</label>
-            <input type="text" name="instructions" class="w-50" />
+            <input type="text" name="instructions" class="w-50" >
         </div>
         <div class="form-group">
             <label for="cooked" class="w-50">Cooked:</label>
-            <input type="date" name="cooked" class="w-50" />
+            <input type="date" name="cooked" class="w-50" >
         </div>
         <div class="form-group">
             <label for="under_30" id="under_30" class="w-50"><u>Under 30?:</u></label>
             <div class="d-flex justify-content-center align-items-center">
                 <div>
                     <label for="under_30" id="under_30" class="w-50">Yes:</label>
-                    <input type="radio" name="under_30" id="under_30" class="w-50" value=1 />
+                    <input type="radio" name="under_30" id="under_30" class="w-50" value=1 >
                 </div>
                 <div>
                     <label for="under_30" id="under_30" class="w-50">No:</label>
-                    <input type="radio" name="under_30" id="under_30" class="w-50" value=0 />
+                    <input type="radio" name="under_30" id="under_30" class="w-50" value=0 >
                 </div>
             </div>
         </div>
         <hr>
-        <input type="submit" value="Submit Recipe" class="btn-warning p-2 w-25" />
+        <input type="submit" value="Submit Recipe" class="btn-warning p-2 w-25" >
     </form>
 </body>
 

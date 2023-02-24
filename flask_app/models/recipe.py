@@ -28,8 +28,18 @@ class Recipe:
 
     @classmethod
     def edit_recipe(cls, data):
-        query = "UPDATE recipes_table SET name = %(name)s, description = %(description)s,  instructions = %(instructions)s, cooked = %(cooked)s, under_30 = %(under_30)s, updated_at = NOW() WHERE recipes_table.id=%(id)s"
-        return connectToMySQL('dojos_and_ninjas').query_db(query, data)
+        query = """
+                UPDATE recipes_table 
+                SET 
+                name = %(name)s, 
+                description = %(description)s, 
+                instructions = %(instructions)s, 
+                cooked = %(cooked)s, 
+                under_30 = %(under_30)s, 
+                updated_at = NOW() 
+                WHERE id=%(id)s
+                ;"""
+        return connectToMySQL('recipes').query_db(query, data)
 
     @classmethod
     def delete_recipe(cls, data):
@@ -62,28 +72,60 @@ class Recipe:
             result.append(one_recipe)
         return result
 
-    # @classmethod
-    # def display_single_recipe(cls, data):
-    #     query = """
-    #             SELECT * FROM recipes_table
-    #             LEFT JOIN users_and_recipes ON recipes_table.id = users_and_recipes.recipe_id
-    #             LEFT JOIN users_table ON users_table.id = users_and_recipes.user_id
-    #             WHERE recipes_table.id = %(id)s;
-    #             ;"""
-    #     results = connectToMySQL('recipes').query_db(query, data)
-    #     result = cls(results[0])
-    #     for row in results:
-    #         data = {
-    #             'id': row['users.id'],
-    #             'first_name': row['first_name'],
-    #             'last_name': row['last_name'],
-    #             'email': row['email'],
-    #             'created_at': row['created_at'],
-    #             'updated_at':row['updated_at']
-    #         }
-    #         result.posted_by.append(user.User(data))
-    #     print(result)
-    #     return result
+    @classmethod
+    def display_one_recipe_to_edit(cls, data):
+        query = """
+                SELECT * FROM recipes_table
+                WHERE id = %(id)s
+                ;"""
+        results = connectToMySQL('recipes').query_db(query, data)
+        result = cls(results[0])
+        print(result)
+        return result
+    
+    @classmethod
+    def display_one_recipe(cls, data):
+        query = """
+                SELECT * FROM recipes_table
+                JOIN users_table on recipes_table.user_id = users_table.id
+                WHERE recipes_table.id = %(id)s
+                ;"""
+        results = connectToMySQL('recipes').query_db(query, data)
+        print(results[0])
+        return results[0]
+        # result = []
+        # for row in results:
+        #     one_recipe = cls(row)
+        #     one_user = {
+        #         'id': row['users_table.id'],
+        #         'first_name': row['first_name'],
+        #         'last_name': row['last_name'],
+        #         'email': row['email'],
+        #         'password': "",
+        #         'created_at': row['users_table.created_at'],
+        #         'updated_at': row['users_table.updated_at']
+        #     }
+        #     one_recipe.posted_by = user.User(one_user)
+        #     result.append(one_recipe)
+        # return result
+        # query = """
+        #         SELECT * FROM recipes_table
+        #         WHERE id = %(id)s
+        #         ;"""
+        # results = connectToMySQL('recipes').query_db(query, data)
+        # print(results[0])
+        # return results[0]
+        # for row in results:
+        #     data = {
+        #         'id': row['users.id'],
+        #         'first_name': row['first_name'],
+        #         'last_name': row['last_name'],
+        #         'email': row['email'],
+        #         'created_at': row['created_at'],
+        #         'updated_at':row['updated_at']
+        #     }
+        #     result.posted_by.append(user.User(data))
+        # return results
 
     @staticmethod
     def validate_recipe(form_data):
@@ -102,5 +144,25 @@ class Recipe:
             is_valid = False
         if 'under_30' not in form_data:
             flash("Under 30 field cannot be left blank", 'Recipes')
+            is_valid = False
+        return is_valid
+    
+    @staticmethod
+    def validate_recipe_edit(form_data):
+        is_valid = True
+        if len(form_data['name']) < 3:
+            flash("Name of recipe must be at least 3 characters", 'Edit_Recipes')
+            is_valid = False
+        if len(form_data['description']) < 3:
+            flash("Descirption must be at least 3 characters", 'Edit_Recipes')
+            is_valid = False
+        if len(form_data['instructions']) < 3:
+            flash("Instructions must be at least 3 characters", 'Edit_Recipes')
+            is_valid = False
+        if form_data['cooked'] == '':
+            flash("Cooked field cannot be left blank", 'Edit_Recipes')
+            is_valid = False
+        if 'under_30' not in form_data:
+            flash("Under 30 field cannot be left blank", 'Edit_Recipes')
             is_valid = False
         return is_valid

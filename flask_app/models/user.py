@@ -22,6 +22,15 @@ class User:
             return False
         print(result[0])
         return cls(result[0])
+    
+    @classmethod
+    def get_one_user_by_user_id(cls, data):
+        query = "SELECT * FROM users_table WHERE id=%(id)s"
+        result = connectToMySQL('recipes').query_db(query, data)
+        if not result:
+            return False
+        print(result[0])
+        return cls(result[0])
 
     @classmethod
     def get_one_user_by_email(cls, data):

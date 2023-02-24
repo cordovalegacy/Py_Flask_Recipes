@@ -41,7 +41,7 @@
                 </td>
                 <td>{{one_recipe.posted_by.first_name}} {{one_recipe.posted_by.last_name}}</td>
                 <td class="text-light">
-                    <button><a href="/display_one_recipe">View Recipe</a></button> 
+                    <button><a href="/display_one_recipe/{{one_recipe.id}}">View Recipe</a></button> 
                     {% if one_recipe.posted_by.id == user.id %} 
                     |
                     <button><a href="/edit_one_recipe/{{one_recipe.id}}">Edit</a></button> | 

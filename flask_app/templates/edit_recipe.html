@@ -9,11 +9,15 @@
     <title>Edit a Recipe</title>
 </head>
 <body class="bg-primary p-2">
-    <form action="/save_one_recipe" method="post"
+    <div class="text-right p-3 m-3">
+        <button><a href="/user_page">Dashboard</a></button>
+        <button><a href="/logout">Logout</a></button>
+    </div>
+    <form action="/update_one_recipe/{{one_recipe.id}}" method="post"
         class="bg-dark m-auto p-5 w-50 h-100 text-center text-light form-control border border-warning">
         <h2 class="text-warning">Create a Recipe</h2>
         <hr />
-        {% with messages = get_flashed_messages(category_filter=['Recipes']) %}
+        {% with messages = get_flashed_messages(category_filter=['Edit_Recipes']) %}
         {% if messages %}
         {% for message in messages %}
         <p>{{message}}</p>
@@ -22,35 +26,35 @@
         {% endwith %}
         <div class="form-group">
             <label for="name" class="w-50">Name:</label>
-            <input type="text" name="name" class="w-50" />
+            <input type="text" name="name" class="w-50" value="{{one_recipe.name}}">
         </div>
         <div class="form-group">
             <label for="description" class="w-50">Description:</label>
-            <input type="text" name="description" class="w-50" />
+            <input type="text" name="description" class="w-50" value="{{one_recipe.description}}">
         </div>
         <div class="form-group">
             <label for="instructions" class="w-50">Instructions:</label>
-            <input type="text" name="instructions" class="w-50" />
+            <input type="text" name="instructions" class="w-50" value="{{one_recipe.instructions}}">
         </div>
         <div class="form-group">
             <label for="cooked" class="w-50">Cooked:</label>
-            <input type="date" name="cooked" class="w-50" />
+            <input type="date" name="cooked" class="w-50" value="{{one_recipe.cooked}}">
         </div>
         <div class="form-group">
             <label for="under_30" id="under_30" class="w-50"><u>Under 30?:</u></label>
             <div class="d-flex justify-content-center align-items-center">
                 <div>
                     <label for="under_30" id="under_30" class="w-50">Yes:</label>
-                    <input type="radio" name="under_30" id="under_30" class="w-50" value=1 />
+                    <input type="radio" name="under_30" id="under_30" class="w-50" value=1 {% if one_recipe.under_30 == 1 %} checked {% endif %}>
                 </div>
                 <div>
                     <label for="under_30" id="under_30" class="w-50">No:</label>
-                    <input type="radio" name="under_30" id="under_30" class="w-50" value=0 />
+                    <input type="radio" name="under_30" id="under_30" class="w-50" value=0 {% if one_recipe.under_30 == 0 %} checked {% endif %}>
                 </div>
             </div>
         </div>
         <hr>
-        <input type="submit" value="Submit Recipe" class="btn-warning p-2 w-25" />
+        <input type="submit" value="Edit" class="btn-warning p-2 w-25" >
     </form>
 </body>
 </html>
