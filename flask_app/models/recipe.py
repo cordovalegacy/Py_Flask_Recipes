@@ -27,6 +27,11 @@ class Recipe:
         return connectToMySQL('recipes').query_db(query, form_data)
 
     @classmethod
+    def edit_recipe(cls, data):
+        query = "UPDATE recipes_table SET name = %(name)s, description = %(description)s,  instructions = %(instructions)s, cooked = %(cooked)s, under_30 = %(under_30)s, updated_at = NOW() WHERE recipes_table.id=%(id)s"
+        return connectToMySQL('dojos_and_ninjas').query_db(query, data)
+
+    @classmethod
     def delete_recipe(cls, data):
         query = "DELETE FROM recipes_table WHERE id=%(id)s;"
         return connectToMySQL('recipes').query_db(query, data)

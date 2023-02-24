@@ -28,3 +28,10 @@ def delete_one_recipe(id):
     }
     Recipe.delete_recipe(data)
     return redirect('/user_page')
+
+@app.route('/edit_one_recipe/<int:id>')
+def edit_one_recipe(id):
+    data={
+        'id':id
+    }
+    return render_template('edit_recipe.html', one_ninja = Recipe.edit_one_recipe_view(data))
